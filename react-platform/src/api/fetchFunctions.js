@@ -24,3 +24,23 @@ export const callRegisterApi = (values) => {
         data:data
     })
 }
+
+//login api
+export const callLogInApi = (values) => {
+
+    // error handling if params are undefined
+    if(!values.email && !values.password) {
+        console.warn('email and password are required')
+        return
+    }
+
+    let data = new FormData();
+    data.append('email',values.email)
+    data.append('password',values.password)
+
+    return axios({
+        method:'POST',
+        url:baseUrl+apiPath+'/login',
+        data:data
+    })
+}

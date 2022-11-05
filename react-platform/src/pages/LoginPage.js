@@ -4,16 +4,23 @@ import React from 'react'
 import { useFormik } from 'formik';
 
 //components
-import InputField from '../components/InputField'
+import InputField from '../components/InputField';
 import Button from '../components/Button';
 
 //validation schemas
-import { signUpSchema } from '../schemas';
+import { logInSchema } from '../schemas';
 import Or from '../components/Or';
+
+//api functions
+import { callLogInApi } from '../api/fetchFunctions';
 
 //function that is called on submit
 const onSubmit = (values) => {
-  console.log(values)
+  callLogInApi(values).then((response) => {
+    //save token locally and redirect
+    localStorage.setItem('token', response.data.access_token)
+    window.location.pathname = '/dashboard'
+  })
 }
 
 function LoginPage() {
@@ -24,7 +31,7 @@ function LoginPage() {
           email: "",
           password: "",
       },
-      validationSchema: signUpSchema,
+      validationSchema: logInSchema,
       onSubmit
     })
 

@@ -10,6 +10,8 @@ import Button from '../components/Button';
 //validation schemas
 import { signUpSchema } from '../schemas';
 import Or from '../components/Or';
+
+//api functions
 import { callRegisterApi } from '../api/fetchFunctions';
 
 
