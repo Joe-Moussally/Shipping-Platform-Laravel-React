@@ -10,11 +10,14 @@ import Button from '../components/Button';
 //validation schemas
 import { signUpSchema } from '../schemas';
 import Or from '../components/Or';
+import { callRegisterApi } from '../api/fetchFunctions';
 
 
 //function that is called on submit
 const onSubmit = (values) => {
-    console.log(values)
+    callRegisterApi(values).then(() => {
+        window.location.pathname = '/login'
+    })
 }
 
 function SignUpPage() {
