@@ -47,6 +47,7 @@ function SignUpPage() {
                 value={values.email}
                 onChange={handleChange}
                 placeholder='example@mail.com'
+                error={errors.email}
             />
 
             {/* Password input */}
@@ -58,6 +59,7 @@ function SignUpPage() {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                error={errors.password}
             />
 
             {/* Confirm Password Input */}
@@ -69,6 +71,7 @@ function SignUpPage() {
                 value={values.confirmPassword}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                error={errors.confirmPassword}
             />
 
             {/* Submit button */}
