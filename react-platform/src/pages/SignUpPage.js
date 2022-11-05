@@ -7,16 +7,29 @@ import { useFormik } from 'formik';
 import InputField from '../components/InputField'
 import Button from '../components/Button';
 
+//validation schemas
+import { signUpSchema } from '../schemas';
+
+
+//function that is called on submit
+const onSubmit = () => {
+    console.log('SUBMITTED')
+}
+
 function SignUpPage() {
 
     //formik hook
-    const { values, handleBlur, handleChange } = useFormik({
+    const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues:{
             email: "",
             password: "",
             confirmPassword: ""
-        }
+        },
+        validationSchema: signUpSchema,
+        onSubmit
     })
+
+    console.log(errors)
 
   return (
     <div className='bg-[#001024] h-[100vh] flex flex-col items-center'>
@@ -24,7 +37,7 @@ function SignUpPage() {
         {/* Page title */}
         <span className='text-white text-6xl font-bold m-10'>Sign Up</span>
 
-        <form autoComplete='off'>
+        <form id='signup-form' onSubmit={handleSubmit} autoComplete='off'>
 
             {/* Email input */}
             <InputField
