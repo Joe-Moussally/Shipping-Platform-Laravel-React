@@ -9,17 +9,18 @@ import Button from '../components/Button';
 
 //validation schemas
 import { signUpSchema } from '../schemas';
+import Or from '../components/Or';
 
 
 //function that is called on submit
-const onSubmit = () => {
-    console.log('SUBMITTED')
+const onSubmit = (values) => {
+    console.log(values)
 }
 
 function SignUpPage() {
 
     //formik hook
-    const { values, errors, handleBlur, handleChange, handleSubmit } = useFormik({
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues:{
             email: "",
             password: "",
@@ -28,8 +29,6 @@ function SignUpPage() {
         validationSchema: signUpSchema,
         onSubmit
     })
-
-    console.log(errors)
 
   return (
     <div className='bg-[#001024] h-[100vh] flex flex-col items-center'>
@@ -46,8 +45,12 @@ function SignUpPage() {
                 type='email'
                 value={values.email}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 placeholder='example@mail.com'
-                error={errors.email}
+                error={
+                    touched.email && errors.email ?
+                    errors.email:''
+                }
             />
 
             {/* Password input */}
@@ -59,7 +62,10 @@ function SignUpPage() {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={errors.password}
+                error={
+                    touched.password && errors.password ?
+                    errors.password:''
+                }
             />
 
             {/* Confirm Password Input */}
@@ -71,15 +77,28 @@ function SignUpPage() {
                 value={values.confirmPassword}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={errors.confirmPassword}
+                error={
+                    touched.confirmPassword && errors.confirmPassword ?
+                    errors.confirmPassword:''
+                }
             />
 
             {/* Submit button */}
             <Button
+                onClick={handleSubmit}
                 text="Sign Up"
                 style={{margin: 'auto'}}
             />
         </form>
+
+        {/* "or login" section */}
+        <Or />
+
+        <Button
+            text='Log In'
+            outlined={true}
+            onClick={() => window.location.pathname = '/login'}
+        />
     </div>
   )
 }
