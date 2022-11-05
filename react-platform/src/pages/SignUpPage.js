@@ -10,7 +10,7 @@ import Button from '../components/Button';
 function SignUpPage() {
 
     //formik hook
-    const formik = useFormik({
+    const { values, handleBlur, handleChange } = useFormik({
         initialValues:{
             email: "",
             password: "",
@@ -31,8 +31,8 @@ function SignUpPage() {
                 id='email'
                 label='Email'
                 type='email'
-                value={formik.values.email}
-                onChange={formik.handleChange}
+                value={values.email}
+                onChange={handleChange}
                 placeholder='example@mail.com'
             />
 
@@ -42,9 +42,9 @@ function SignUpPage() {
                 label='Password'
                 type='password'
                 placeholder='Password'
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
             />
 
             {/* Confirm Password Input */}
@@ -53,9 +53,9 @@ function SignUpPage() {
                 label='Confirm Password'
                 type='password'
                 placeholder='Confirm Password'
-                value={formik.values.confirmPassword}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
             />
 
             {/* Submit button */}
