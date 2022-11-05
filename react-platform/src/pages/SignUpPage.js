@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 
 //components
 import InputField from '../components/InputField'
+import Button from '../components/Button';
 
 function SignUpPage() {
 
@@ -58,6 +59,10 @@ function SignUpPage() {
             />
 
             {/* Submit button */}
+            <Button
+                text="Sign Up"
+                style={{margin: 'auto'}}
+            />
         </form>
     </div>
   )
