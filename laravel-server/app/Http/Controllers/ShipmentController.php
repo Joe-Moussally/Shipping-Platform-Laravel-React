@@ -57,6 +57,22 @@ class ShipmentController extends Controller
             'status'=>'success',
             'shipments'=>$shipments
         ], 200);
+    }
+
+    //function to delete a user's shipment
+    public function deleteShipment($shipment_id) {
+
+        $user_id = Auth::id();
+
+        // delete the shipment waybill
+        Shipment::find($shipment_id)->waybill->delete();
+
+        //delete the shipment itself
+        Shipment::find($shipment_id)->delete();
+
+        return response()->json([
+            'status'=>'success',
+        ], 200);
 
     }
 }
