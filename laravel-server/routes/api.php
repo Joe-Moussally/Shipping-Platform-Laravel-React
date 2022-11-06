@@ -22,5 +22,6 @@ Route::group(['prefix' => 'v1'], function(){
         Route::get('/',[ShipmentController::class, 'getUserShipments']);
         Route::post('/',[ShipmentController::class, 'createShipment']);
         Route::delete('/{shipment_id?}',[ShipmentController::class, 'deleteShipment']);
+        Route::put('/',[ShipmentController::class, 'updateShipment']);
     });
 });

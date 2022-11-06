@@ -65,6 +65,7 @@ class ShipmentController extends Controller
         $user_id = Auth::id();
         $shipment = Shipment::find($shipment_id);
 
+        //if the shipment doesn't belong to user -> return
         if($user_id != $shipment->user_id) {
             return response()->json([
                 'message'=>'unauthorized',
@@ -80,6 +81,40 @@ class ShipmentController extends Controller
         return response()->json([
             'status'=>'success',
         ], 200);
+    }
 
+    //function to update a shipment's data
+    public function updateShipment(Request $request) {
+
+        $user_id = Auth::id();
+
+        // update shipment object
+        $shipment = Shipment::find($request->shipment_id);
+
+        //if the shipment doesn't belong to user -> return
+        if($user_id != $shipment->user_id) {
+            return response()->json([
+                'message'=>'unauthorized',
+            ], 401);
+        }
+
+        $shipment->shipment_name = $request->shipment_name;
+        $shipment->customer_name = $request->customer_name;
+        $shipment->customer_address = $request->customer_address;
+        $shipment->customer_phone_number = $request->customer_phone_number;
+        $shipment->save();
+
+        //update the waybill
+        $waybill = $shipment->waybill;
+        $waybill->shipping_cost = $request->shipping_cost;
+        $waybill->tax = $request->tax;
+        $waybill->save();
+
+        return response()->json([
+            'status'=>'success',
+            'user_id'=>$user_id,
+            'shipment'=>$shipment,
+            'waybill' => $waybill
+        ], 200);
     }
 }
