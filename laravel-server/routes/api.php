@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JWTController;
+use App\Http\Controllers\ShipmentController;
 
 
 Route::group(['prefix' => 'v1'], function(){
@@ -14,5 +15,10 @@ Route::group(['prefix' => 'v1'], function(){
         Route::post('/logout', [JWTController::class, 'logout']);
         Route::post('/refresh', [JWTController::class, 'refresh']);
         Route::post('/profile', [JWTController::class, 'profile']);
+    });
+
+    //shipment apis
+    Route::group(['prefix' => 'shipment'], function(){
+        Route::post('/',[ShipmentController::class, 'createShipment']);
     });
 });
