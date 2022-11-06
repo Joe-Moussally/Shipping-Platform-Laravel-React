@@ -17,21 +17,27 @@ class ShipmentController extends Controller
 
         $user_id = Auth::id();
 
-        create new shipment object
+        //create the waybill
+        $waybill = new Waybill;
+        $waybill->shipping_cost = $request->shipping_cost;
+        $waybill->tax = $request->tax;
+        $waybill->save();
+
+        // create new shipment object
         $shipment = new Shipment;
         $shipment->shipment_name = $request->shipment_name;
         $shipment->customer_name = $request->customer_name;
         $shipment->customer_address = $request->customer_address;
         $shipment->customer_phone_number = $request->customer_phone_number;
-        $shipment->waybill_id = 1;
+        $shipment->waybill_id = $waybill->id;
         $shipment->user_id = $user_id;
         $shipment->save();
-        $shipment = User::find($user_id)->shipments;
-
+        
         return response()->json([
             'status'=>'success',
             'user_id'=>$user_id,
-            'shipment'=>$shipment
+            'shipment'=>$shipment,
+            'waybill' => $waybill
         ], 200);
 
     }
