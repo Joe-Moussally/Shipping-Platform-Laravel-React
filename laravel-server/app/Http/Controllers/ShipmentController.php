@@ -32,7 +32,7 @@ class ShipmentController extends Controller
         $shipment->waybill_id = $waybill->id;
         $shipment->user_id = $user_id;
         $shipment->save();
-        
+
         return response()->json([
             'status'=>'success',
             'user_id'=>$user_id,
@@ -47,6 +47,11 @@ class ShipmentController extends Controller
 
         $user_id = Auth::id();
         $shipments = User::find($user_id)->shipments;
+
+        //getting the waybill of each shipment
+        foreach ($shipments as $shipment) {
+            $shipment['waybill'] = Waybill::find($shipment->waybill_id);
+        }
 
         return response()->json([
             'status'=>'success',

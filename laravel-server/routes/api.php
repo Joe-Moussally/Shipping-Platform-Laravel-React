@@ -19,6 +19,7 @@ Route::group(['prefix' => 'v1'], function(){
 
     //shipment apis
     Route::group(['prefix' => 'shipment'], function(){
+        Route::get('/',[ShipmentController::class, 'getUserShipments']);
         Route::post('/',[ShipmentController::class, 'createShipment']);
     });
 });
