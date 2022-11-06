@@ -63,12 +63,19 @@ class ShipmentController extends Controller
     public function deleteShipment($shipment_id) {
 
         $user_id = Auth::id();
+        $shipment = Shipment::find($shipment_id);
+
+        if($user_id != $shipment->user_id) {
+            return response()->json([
+                'message'=>'unauthorized',
+            ], 401);
+        }
 
         // delete the shipment waybill
-        Shipment::find($shipment_id)->waybill->delete();
+        $shipment->waybill->delete();
 
         //delete the shipment itself
-        Shipment::find($shipment_id)->delete();
+        $shipment->delete();
 
         return response()->json([
             'status'=>'success',
