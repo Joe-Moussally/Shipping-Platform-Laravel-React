@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 //packages
 import { useFormik } from 'formik';
@@ -6,23 +6,34 @@ import { useFormik } from 'formik';
 //components
 import InputField from '../components/InputField'
 import Button from '../components/Button';
+import Or from '../components/Or';
 
 //validation schemas
 import { signUpSchema } from '../schemas';
-import Or from '../components/Or';
 
 //api functions
 import { callRegisterApi } from '../api/fetchFunctions';
 
 
-//function that is called on submit
-const onSubmit = (values) => {
-    callRegisterApi(values).then(() => {
-        window.location.pathname = '/login'
-    })
-}
+
 
 function SignUpPage() {
+
+    const [errorMessage,setErrorMessage] = useState('')
+
+    //function that is called on submit
+    const onSubmit = (values) => {
+        callRegisterApi(values).then(() => {
+            window.location.pathname = '/login'
+        }).catch((error) => {
+            if (error.response.data.email[0] === 'The email has already been taken.') {
+                setErrorMessage('Email already exist')
+                setTimeout(() => {
+                    setErrorMessage('')
+                },4000)
+            }
+        })
+    }
 
     //formik hook
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -87,6 +98,11 @@ function SignUpPage() {
                     errors.confirmPassword:''
                 }
             />
+
+            {/* error message container */}
+            <div className='flex justify-center m-4'>
+                <span className='text-red-500 text-sm text-center'>{errorMessage}</span>
+            </div>
 
             {/* Submit button */}
             <Button
