@@ -2,9 +2,14 @@ import React from 'react'
 
 //component imports
 import Button from './Button'
+import CustomerInfoDisplay from './shipment_card_components/CustomerInfoDisplay'
 
 //icons import
 import { BiTrashAlt } from 'react-icons/bi'
+import { BsPersonFill } from 'react-icons/bs'
+import { FaPhoneAlt } from 'react-icons/fa'
+import { MdLocationPin } from 'react-icons/md'
+import { AiFillEdit } from 'react-icons/ai'
 
 function ShipmentCard({
   shipmentName,
@@ -15,22 +20,60 @@ function ShipmentCard({
 }) {
 
   return (
-    <div className='flex flex-col border-2 border-gray-400 rounded-md h-fit min-w-[330px] w-[30%] max-w-[400px] p-3'>
+    <div className='flex flex-col bg-[#19283d] border-[1.3px] border-gray-400 rounded-md h-fit min-w-[330px] w-[30%] max-w-[400px] p-3'>
       {/* shipment name */}
       <span className='text-white font-bold text-2xl'>{shipmentName}</span>
 
-      <span className='text-gray-400'>For {customerName}</span>
-      <span>{customerAddress}</span>
+      {/* Waybill */}
+      <span className='ml-4 text-gray-300 text-sm mb-2 italic'>waybill {waybill}</span>
 
-      <Button
-        text='Delete'
-        icon={
-          <BiTrashAlt />
-        }
-        style={{
-          backgroundColor:'#bd2b35',
-        }}
-      />
+      {/* Customer Information */}
+      <span className='font-semibold text-white ml-3'>Customer</span>
+
+      {/* Info container */}
+      <div className='flex flex-col ml-6'>
+
+        <CustomerInfoDisplay
+          information={customerName}
+          icon={<BsPersonFill />}
+        />
+
+        <CustomerInfoDisplay
+          information={customerPhoneNumber}
+          icon={<FaPhoneAlt style={{scale:'.8'}}/>}
+        />
+
+        <CustomerInfoDisplay
+          information={customerAddress}
+          icon={<MdLocationPin />}
+        />
+
+      </div>
+
+      {/* Delet/Edit buttons container */}
+      <div className='flex justify-end mt-4'>
+
+        {/* EDIT */}
+        <Button
+          text='Edit'
+          icon={<AiFillEdit />}
+          style={{
+            scale:'.8'
+          }}
+        />
+
+        {/* DELETE */}
+        <Button
+          text='Delete'
+          icon={
+            <BiTrashAlt />
+          }
+          style={{
+            backgroundColor:'#bd2b35',
+            scale:'.8'
+          }}
+        />
+      </div>
     </div>
   )
 }
