@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('customer_name',255);
             $table->string('customer_address',255);
             $table->string('customer_phone_number',255);
+            $table->foreignId('waybill');
             $table->foreignId('user_id');
-            $table->foreignId('waybill_id');
             $table->timestamps();
         });
     }
