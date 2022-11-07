@@ -87,7 +87,13 @@ function ShipmentCard({
           style={{
             scale:'.8'
           }}
-          onClick={() => setIsHidden(false)}
+          onClick={() => {
+            //for safari
+            document.body.scrollTop = 100
+            //for chrome,firefox...
+            document.documentElement.scrollTop = 100
+            setIsHidden(false)
+          }}
         />
 
         {/* DELETE */}

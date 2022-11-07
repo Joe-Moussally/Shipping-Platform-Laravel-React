@@ -74,13 +74,12 @@ function AddShipmentForm({
   return (
     // container window
     <div
-        className={`${isHidden?'hidden':''} absolute bg-black w-[100%] bg-opacity-40 h-[100vh] transition-opacity duration-500`}
-        // onClick={() => setIsHidden(true)}
+        className={`${isHidden?'hidden':''} fixed bg-black w-[100%] bg-opacity-40 h-[100vh] transition-opacity duration-500`}
     >
 
         {/* form container */}
         <div
-            className='bg-[#454c61] min-w-[440px] w-[60%] max-w-[760px] mx-auto mt-[130px] rounded-md p-2 flex flex-col items-center'
+            className='bg-[#454c61] min-w-[440px] w-[60%] max-w-[760px] mx-auto mt-[10px] rounded-md p-2 flex flex-col items-center'
             onClick={(e) => {e.stopPropagation()}}    
         >
             {/* close form button */}
