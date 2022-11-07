@@ -94,9 +94,6 @@ class ShipmentController extends Controller
 
         return response()->json([
             'status'=>'success',
-            'user_id'=>$user_id,
-            'shipment'=>$request->shipment_id,
-            // 'waybill' => $waybill
         ], 200);
     }
 }

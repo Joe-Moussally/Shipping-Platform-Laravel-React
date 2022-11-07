@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 //packages
 import { useFormik } from 'formik';
@@ -14,16 +14,29 @@ import Or from '../components/Or';
 //api functions
 import { callLogInApi } from '../api/fetchFunctions';
 
-//function that is called on submit
-const onSubmit = (values) => {
-  callLogInApi(values).then((response) => {
-    //save token locally and redirect
-    localStorage.setItem('token', response.data.access_token)
-    window.location.pathname = '/dashboard'
-  })
-}
 
 function LoginPage() {
+
+  const [errorMessage,setErrorMessage] = useState('')
+
+  //function that is called on submit
+  const onSubmit = (values) => {
+    callLogInApi(values).then((response) => {
+      //save token locally and redirect
+      localStorage.setItem('token', response.data.access_token)
+      window.location.pathname = '/dashboard'
+    }).catch((error) => {
+      
+      //if error code 401 -> wrong email/password
+      if(error.response.status === 401) {
+        setErrorMessage('Wrong email/password')
+        //remove message after a few seconds
+        setTimeout(() => {
+          setErrorMessage('')
+        },4000)
+      }
+    })
+  }
 
     //formik hook
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
@@ -34,6 +47,8 @@ function LoginPage() {
       validationSchema: logInSchema,
       onSubmit
     })
+
+
 
   return (
     <div className='bg-[#001024] h-[100vh] flex flex-col items-center'>
@@ -73,6 +88,10 @@ function LoginPage() {
               }
           />
 
+          {/* error message container */}
+          <div className='flex justify-center m-4'>
+            <span className='text-red-500 text-sm text-center'>{errorMessage}</span>
+          </div>
           {/* Submit button */}
           <Button
               onClick={handleSubmit}

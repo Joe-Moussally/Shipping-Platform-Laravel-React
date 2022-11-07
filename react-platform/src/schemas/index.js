@@ -25,6 +25,5 @@ export const logInSchema = yup.object().shape({
         .required("Required"),
     password: yup
         .string()
-        .min(6,"Password length must be at least 6")
         .required("Required"),
 })
