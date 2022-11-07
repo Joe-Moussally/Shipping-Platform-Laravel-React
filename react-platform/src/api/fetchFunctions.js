@@ -68,7 +68,7 @@ export const addShipment = (values) => {
 
     // error handling if token is not defined
     if(!localStorage.getItem('token')) {
-        console.warn('token/shipment id is required')
+        console.warn('token is not set')
         return
     }
 
@@ -76,7 +76,7 @@ export const addShipment = (values) => {
     data.append('shipment_name',values.shipmentName)
     data.append('customer_name',values.customerName)
     data.append('customer_address',values.customerAddress)
-    data.append('customer_phone_number',values.customerPhonerNumber)
+    data.append('customer_phone_number',values.customerPhoneNumber)
     data.append('waybill',values.waybill)
 
     return axios({
@@ -102,6 +102,34 @@ export const deleteShipmentById = (id) => {
         method:'DELETE',
         url:baseUrl+apiPath+'/shipment/'+id,
         headers:{
+            'Authorization' : 'Bearer '+localStorage.getItem('token')
+        }
+    })
+}
+
+//update a shipments api
+export const updateShipment = (shipmentId, values) => {
+console.log(shipmentId)
+    // error handling if token is not defined
+    if(!localStorage.getItem('token')) {
+        console.warn('token is not set')
+        return
+    }
+
+    let data = new FormData()
+    data.append('shipment_id',shipmentId)
+    data.append('shipment_name',values.shipmentName)
+    data.append('customer_name',values.customerName)
+    data.append('customer_address',values.customerAddress)
+    data.append('customer_phone_number',values.customerPhoneNumber)
+    data.append('waybill',values.waybill)
+
+    return axios({
+        method:'POST',
+        url:baseUrl+apiPath+'/shipment/update',
+        data,
+        headers:{
+            'Content-Type':'application/form-data',
             'Authorization' : 'Bearer '+localStorage.getItem('token')
         }
     })

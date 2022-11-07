@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 //component imports
 import Button from './Button'
 import CustomerInfoDisplay from './shipment_card_components/CustomerInfoDisplay'
+import EditShipmentForm from './EditShipmentForm'
 
 //redux imports
 import { useDispatch } from 'react-redux'
@@ -20,6 +21,7 @@ import { deleteShipmentById } from '../api/fetchFunctions'
 //redux imports
 import { removeFromShipmentArray } from '../redux/slices/shipmentsSlice'
 
+
 function ShipmentCard({
   id,
   shipmentName,
@@ -30,6 +32,8 @@ function ShipmentCard({
 }) {
 
   const dispatch = useDispatch();
+
+  const [isHidden,setIsHidden] = useState(true)
 
   //function to confirm the deletion of a shipment
   const confirmDeleteShipment = () => {
@@ -83,6 +87,7 @@ function ShipmentCard({
           style={{
             scale:'.8'
           }}
+          onClick={() => setIsHidden(false)}
         />
 
         {/* DELETE */}
@@ -98,6 +103,19 @@ function ShipmentCard({
           }}
         />
       </div>
+
+
+      <EditShipmentForm
+        isHidden={isHidden}
+        setIsHidden={setIsHidden}
+        shipmentId={id}
+        shipmentNameValue={shipmentName}
+        customerNameValue={customerName}
+        customerPhoneNumberValue={customerPhoneNumber}
+        customerAddressValue={customerAddress}
+        waybillValue={waybill}
+      />
+
     </div>
   )
 }

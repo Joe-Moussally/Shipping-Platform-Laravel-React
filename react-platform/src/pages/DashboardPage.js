@@ -28,7 +28,6 @@ function DashboardPage() {
   const [isHidden,setIsHidden] = useState(true)
 
   useEffect(() => {
-    console.log(shipmentsArray)
     
     //check if token is set / if not -> redirect to login
     if(!localStorage.getItem('token')) window.location.pathname = '/login'
