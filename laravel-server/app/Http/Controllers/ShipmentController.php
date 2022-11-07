@@ -75,17 +75,6 @@ class ShipmentController extends Controller
         // create new shipment object
         $shipment = Shipment::find($request->shipment_id);
 
-        // DB::table('shipments')->updateOrInsert(
-        //     ['id' => $request->shipment_id],
-        //     [
-        //         'shipment_name' => $request->shipment_name,
-        //         'customer_name' => $request->customer_name,
-        //         'customer_address' => $request->customer_address,
-        //         'customer_phone_number' => $request->customer_phone_number,
-        //         'waybill' => $request->waybill,
-        //     ]
-        // );
-
         // // if the shipment doesn't belong to user -> return
         if($user_id != $shipment->user_id) {
             return response()->json([

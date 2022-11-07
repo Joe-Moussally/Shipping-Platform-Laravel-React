@@ -109,7 +109,7 @@ export const deleteShipmentById = (id) => {
 
 //update a shipments api
 export const updateShipment = (shipmentId, values) => {
-console.log(shipmentId)
+    
     // error handling if token is not defined
     if(!localStorage.getItem('token')) {
         console.warn('token is not set')

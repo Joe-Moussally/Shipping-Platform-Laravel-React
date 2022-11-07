@@ -18,7 +18,7 @@ import { addShipment, updateShipment } from '../api/fetchFunctions';
 
 //redux imports
 import { useDispatch } from 'react-redux';
-import { AddToShipmentsArray } from '../redux/slices/shipmentsSlice';
+import { AddToShipmentsArray, updateSpecificShipment } from '../redux/slices/shipmentsSlice';
 
 
 function EditShipmentForm({
@@ -42,25 +42,14 @@ function EditShipmentForm({
 
         //call add shipment api
         updateShipment(shipmentId,values).then((response) => {
-            console.log(response.data)
-            //on success -> add the new shipment to the glogal array of shipment state
-            // dispatch(AddToShipmentsArray(response.data.shipment))
+            console.log(response.data.shipment)
+            //on success -> update the new shipment to the glogal array of shipment state
+            dispatch(updateSpecificShipment(response.data.shipment))
             //clear form
-            // resetForm()
+            resetForm()
 
             // //hide form
-            // setIsHidden(true)
-
-           
-        }).catch((error) => {
-            //if error code 401 -> wrong email/password
-            if(error.response.status === 401) {
-                setErrorMessage('Wrong email/password')
-                //remove message after a few seconds
-                setTimeout(() => {
-                setErrorMessage('')
-                },4000)
-            }
+            setIsHidden(true)  
         })
     }
 
