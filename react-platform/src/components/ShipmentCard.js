@@ -3,6 +3,9 @@ import React from 'react'
 //component imports
 import Button from './Button'
 
+//icons import
+import { BiTrashAlt } from 'react-icons/bi'
+
 function ShipmentCard({
   shipmentName,
   customerName,
@@ -21,7 +24,12 @@ function ShipmentCard({
 
       <Button
         text='Delete'
-        outlined={false}
+        icon={
+          <BiTrashAlt />
+        }
+        style={{
+          backgroundColor:'#bd2b35',
+        }}
       />
     </div>
   )
