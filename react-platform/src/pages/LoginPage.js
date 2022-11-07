@@ -75,17 +75,17 @@ function LoginPage() {
 
           {/* Password input */}
           <InputField
-              id='password'
-              label='Password'
-              type='password'
-              placeholder='Password'
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={
-                  touched.password && errors.password ?
-                  errors.password:''
-              }
+            id='password'
+            label='Password'
+            type='password'
+            placeholder='Password'
+            value={values.password}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={
+                touched.password && errors.password ?
+                errors.password:''
+            }
           />
 
           {/* error message container */}

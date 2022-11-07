@@ -2,15 +2,13 @@ import React from 'react'
 
 //packages
 import { useFormik } from 'formik';
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-
 
 // icons import 
-import { IoIosCloseCircle } from 'react-icons/io'
+import { IoIosCloseCircle, IoIosAdd } from 'react-icons/io'
 
 //component imports
 import InputField from './InputField';
+import Button from './Button';
 
 function AddShipmentForm({
     isHidden,
@@ -92,6 +90,47 @@ function AddShipmentForm({
                         touched.customerPhoneNumber && errors.customerPhoneNumber ?
                         errors.customerPhoneNumber:''
                     }
+                />
+
+                {/* Customer Address */}
+                <InputField
+                    id='customerAddress'
+                    label='Customer Address'
+                    type='text'
+                    value={values.customerAddress}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={
+                        touched.customerAddress && errors.customerAddress ?
+                        errors.customerAddress:''
+                    }
+                />
+
+                {/* Customer Address */}
+                <InputField
+                    id='waybill'
+                    label='Waybill'
+                    type='text'
+                    value={values.waybill}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={
+                        touched.waybill && errors.waybill ?
+                        errors.waybill:''
+                    }
+                />
+
+                {/* error message container */}
+                <div className='flex justify-center m-4'>
+                    <span className='text-red-400 font-semibold text-sm text-center'>ERROR</span>
+                </div>
+
+                {/* Create Shipment Button */}
+                <Button
+                    text="Add"
+                    onClick={() => setIsHidden(false)}
+                    icon={<IoIosAdd style={{scale:'1.4'}} />}
+                    style={{margin:'auto',backgroundColor:'#16244a'}}
                 />
 
             </form>
