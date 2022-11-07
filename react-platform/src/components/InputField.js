@@ -8,7 +8,7 @@ function InputField({
     label=null,
     placeholder=null,
     type,
-    value=null,
+    value='',
     onChange,
     onBlur=null,
     error=null,
@@ -61,8 +61,8 @@ function InputField({
               id,
               onBlur,
               onChange,
-              value
             }}
+            value={value}
             country={'us'}
             containerClass={`${error?'border-red-400':''} rounded-md`}
             inputStyle={{width:'100%',backgroundColor:'#102540',color:'#d3d6de'}}
