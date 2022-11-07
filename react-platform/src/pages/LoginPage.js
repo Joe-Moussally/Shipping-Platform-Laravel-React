@@ -92,6 +92,7 @@ function LoginPage() {
           <div className='flex justify-center m-4'>
             <span className='text-red-500 text-sm text-center'>{errorMessage}</span>
           </div>
+          
           {/* Submit button */}
           <Button
               onClick={handleSubmit}

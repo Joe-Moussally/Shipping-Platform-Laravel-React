@@ -44,3 +44,21 @@ export const callLogInApi = (values) => {
         data:data
     })
 }
+
+//get user shipments api
+export const getUserShipments = () => {
+
+    // error handling if token is not defined
+    if(!localStorage.getItem('token')) {
+        console.warn('token is not set')
+        return
+    }
+
+    return axios({
+        method:'GET',
+        url:baseUrl+apiPath+'/shipment',
+        headers:{
+            'Authorization' : 'Bearer '+localStorage.getItem('token')
+        }
+    })
+}

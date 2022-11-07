@@ -3,14 +3,20 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import DashboardPage from "./pages/DashboardPage";
+
+//packages import
+import { Provider } from "react-redux";
+import { store } from './redux/store'
 
 //page imports
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   return (
+
+    <Provider store={store}>
     <BrowserRouter>
       <Routes>
 
@@ -20,6 +26,7 @@ function App() {
         
       </Routes>
     </BrowserRouter>
+    </Provider>
   );
 }
 
