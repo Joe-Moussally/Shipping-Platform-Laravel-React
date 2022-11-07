@@ -8,18 +8,11 @@
 
 2. Navigate to the folder and install dependencies
    ```sh
-   cd Shipping-Platform-Laravel-React
+   cd react-platform
    npm install
    ```
 
 3. Run the start up command for React
    ```sh
-   cd react-platform
    npm start
    ```
-
-3. Navigate back and launch the laravel server
-    ```sh
-    cd ../laravel-server
-    php artisan serve
-    ```
