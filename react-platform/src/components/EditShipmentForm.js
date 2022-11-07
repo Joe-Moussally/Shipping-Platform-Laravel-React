@@ -69,7 +69,7 @@ function EditShipmentForm({
   return (
     // container window
     <div
-        className={`${isHidden?'hidden':''} fixed bg-black w-[100%] bg-opacity-40 h-[100vh] transition-opacity duration-500 top-0 left-0 z-10`}
+        className={`${isHidden?'hidden':''} fixed bg-black w-[100%] bg-opacity-40 h-[100vh] transition-opacity duration-500 top-0 left-0 z-10 overflow-y-auto`}
         // onClick={() => setIsHidden(true)}
     >
 

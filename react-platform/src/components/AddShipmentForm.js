@@ -44,8 +44,6 @@ function AddShipmentForm({
 
             //hide form
             setIsHidden(true)
-
-           
         })
     }
 
@@ -65,7 +63,7 @@ function AddShipmentForm({
   return (
     // container window
     <div
-        className={`${isHidden?'hidden':''} fixed bg-black w-[100%] bg-opacity-40 h-[100vh] transition-opacity duration-500`}
+        className={`${isHidden?'hidden':''} fixed bg-black w-[100%] bg-opacity-40 h-[100vh] transition-opacity duration-500 overflow-y-auto`}
     >
 
         {/* form container */}
