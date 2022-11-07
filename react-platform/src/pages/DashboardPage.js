@@ -9,6 +9,12 @@ import { getShipmentsArray, updateShipmentsArray } from '../redux/slices/shipmen
 
 //component imports
 import ShipmentCard from '../components/ShipmentCard';
+import Button from '../components/Button';
+
+//icons imports
+import { IoIosAdd } from 'react-icons/io'
+import { RiErrorWarningLine } from 'react-icons/ri'
+
 
 function DashboardPage() {
 
@@ -21,6 +27,7 @@ function DashboardPage() {
     //check if token is set / if not -> redirect to login
     if(!localStorage.getItem('token')) window.location.pathname = '/login'
 
+    //get the user's shipments
     getUserShipments().then(response => {
       dispatch(updateShipmentsArray(response.data.shipments))
     }).catch(error => {
@@ -33,7 +40,17 @@ function DashboardPage() {
   },[])
 
   return (
-    <div className=''>
+    <div className='flex flex-col items-center'>
+
+      {/* Title */}
+      <span className='text-white text-5xl font-bold m-5'>My Shipments</span>
+
+      {/* Create Shipment Button */}
+      <Button
+        text="Create New Shipment"
+        icon={<IoIosAdd style={{scale:'1.4'}} />}
+        style={{margin:50}}
+      />
       
       {/* Shipments container */}
       <div className=' flex flex-row flex-wrap justify-center gap-4 p-2'>
@@ -51,6 +68,16 @@ function DashboardPage() {
           ))
         }
       </div>
+
+      {
+        shipmentsArray.length?
+        null:
+        <span className='flex gap-5 items-center text-red-400 text-xl font-semibold mt-10'>
+          <RiErrorWarningLine style={{scale:'1.2'}}/>
+          No Shipments Found
+        </span>
+      }
+
     </div>
   )
 }

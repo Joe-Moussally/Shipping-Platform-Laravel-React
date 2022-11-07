@@ -4,6 +4,9 @@ import React from 'react'
 import Button from './Button'
 import CustomerInfoDisplay from './shipment_card_components/CustomerInfoDisplay'
 
+//redux imports
+import { useDispatch } from 'react-redux'
+
 //icons import
 import { BiTrashAlt } from 'react-icons/bi'
 import { BsPersonFill } from 'react-icons/bs'
@@ -11,6 +14,7 @@ import { FaPhoneAlt } from 'react-icons/fa'
 import { MdLocationPin } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
 import { deleteShipmentById } from '../api/fetchFunctions'
+import { removeFromShipmentArray } from '../redux/slices/shipmentsSlice'
 
 function ShipmentCard({
   id,
@@ -21,12 +25,15 @@ function ShipmentCard({
   waybill
 }) {
 
+  const dispatch = useDispatch();
+
   //function to confirm the deletion of a shipment
   const confirmDeleteShipment = () => {
     //if user confirm deletion of  shipment -> call delete shipment api
     if(window.confirm('Are you sure you want to delete shipment '+shipmentName)) {
-      deleteShipmentById(id).then(response => {
-        console.log(response.data)
+      deleteShipmentById(id).then(() => {
+        //delete remove the shipment from redux
+        dispatch(removeFromShipmentArray(id))
       })
     }
   }
