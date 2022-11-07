@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 //api imports
-import { getUserShipments } from '../api/fetchFunctions';
+import { callLogOutApi, getUserShipments } from '../api/fetchFunctions';
 
 //redux import
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +27,15 @@ function DashboardPage() {
   //track if the add shipment form is hidden
   const [isHidden,setIsHidden] = useState(true)
 
+  //function that is executed when the user logs out
+  const handleLogOut = () => {
+    callLogOutApi().then(() => {
+      //on success -> clear token in local storage -> redirect to login
+      localStorage.removeItem('token')
+      window.location.pathname = '/login'
+    })
+  }
+
   useEffect(() => {
     
     //check if token is set / if not -> redirect to login
@@ -46,6 +55,18 @@ function DashboardPage() {
 
   return (
     <div className='flex flex-col items-center'>
+
+      <Button
+        text='Log Out'
+        outlined={true}
+        style={{
+          color:'crimson',
+          borderColor:'crimson',
+          marginLeft:'auto',
+          scale:'.8'
+        }}
+        onClick={handleLogOut}
+      />
 
       {/* Title */}
       <span className='text-white text-5xl font-bold m-5'>My Shipments</span>
@@ -80,7 +101,7 @@ function DashboardPage() {
         null:
         <span className='flex gap-5 items-center text-red-400 text-xl font-semibold mt-10'>
           <RiErrorWarningLine style={{scale:'1.2'}}/>
-          No Shipments Found
+          You Have No Shipments
         </span>
       }
 

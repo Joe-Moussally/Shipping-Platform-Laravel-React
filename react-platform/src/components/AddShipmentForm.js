@@ -46,15 +46,6 @@ function AddShipmentForm({
             setIsHidden(true)
 
            
-        }).catch((error) => {
-            //if error code 401 -> wrong email/password
-            if(error.response.status === 401) {
-                setErrorMessage('Wrong email/password')
-                //remove message after a few seconds
-                setTimeout(() => {
-                setErrorMessage('')
-                },4000)
-            }
         })
     }
 

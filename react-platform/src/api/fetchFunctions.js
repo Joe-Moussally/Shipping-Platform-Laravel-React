@@ -25,6 +25,18 @@ export const callRegisterApi = (values) => {
     })
 }
 
+//log out api
+export const callLogOutApi = () => {
+
+    return axios({
+        method:'POST',
+        url:baseUrl+apiPath+'/logout',
+        headers:{
+            'Authorization' : 'Bearer '+localStorage.getItem('token')
+        }
+    })
+}
+
 //login api
 export const callLogInApi = (values) => {
 
