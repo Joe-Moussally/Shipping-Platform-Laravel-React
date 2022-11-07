@@ -27,3 +27,22 @@ export const logInSchema = yup.object().shape({
         .string()
         .required("Required"),
 })
+
+// Add Shipment Form Schema
+export const addShipmentSchema = yup.object().shape({
+    shipmentName: yup
+        .string()
+        .required("Required"),
+    customerName: yup
+        .string()
+        .required("Required"),
+    customerAddress: yup
+        .string()
+        .required("Required"),
+    customerPhoneNumber: yup
+        .string()
+        .required("Required"),
+    waybill: yup
+        .string()
+        .required("Required"),
+})

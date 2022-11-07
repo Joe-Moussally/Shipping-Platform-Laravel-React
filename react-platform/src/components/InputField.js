@@ -57,6 +57,13 @@ function InputField({
               }
           />:
           <PhoneInput
+            inputProps={{
+              id,
+              onBlur,
+              onChange,
+              value
+            }}
+            key={id}
             country={'us'}
             containerClass={`${error?'border-red-400':''} rounded-md`}
             inputStyle={{width:'100%',backgroundColor:'#102540',color:'#d3d6de'}}

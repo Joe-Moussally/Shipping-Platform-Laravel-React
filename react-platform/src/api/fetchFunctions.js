@@ -63,6 +63,32 @@ export const getUserShipments = () => {
     })
 }
 
+//add a shipments api
+export const addShipment = (values) => {
+
+    // error handling if token is not defined
+    if(!localStorage.getItem('token')) {
+        console.warn('token/shipment id is required')
+        return
+    }
+
+    let data = new FormData()
+    data.append('shipment_name',values.shipmentName)
+    data.append('customer_name',values.customerName)
+    data.append('customer_address',values.customerAddress)
+    data.append('customer_phone_number',values.customerPhonerNumber)
+    data.append('waybill',values.waybill)
+
+    return axios({
+        method:'POST',
+        url:baseUrl+apiPath+'/shipment/',
+        data,
+        headers:{
+            'Authorization' : 'Bearer '+localStorage.getItem('token')
+        }
+    })
+}
+
 //delete a shipments api
 export const deleteShipmentById = (id) => {
 

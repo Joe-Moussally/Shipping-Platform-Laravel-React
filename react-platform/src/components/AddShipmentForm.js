@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 //packages
 import { useFormik } from 'formik';
@@ -10,13 +10,58 @@ import { IoIosCloseCircle, IoIosAdd } from 'react-icons/io'
 import InputField from './InputField';
 import Button from './Button';
 
+//formik schema
+import { addShipmentSchema } from '../schemas';
+
+//api imports
+import { addShipment } from '../api/fetchFunctions';
+
+//redux imports
+import { useDispatch } from 'react-redux';
+import { AddToShipmentsArray } from '../redux/slices/shipmentsSlice';
+
+
 function AddShipmentForm({
     isHidden,
     setIsHidden
 }) {
 
+    const dispatch = useDispatch()
+
+    const [errorMessage,setErrorMessage] = useState('')
+
+
+    //function that is called on submit
+    const onSubmit = (values) => {
+
+        //call add shipment api
+        addShipment(values).then((response) => {
+            //on success -> add the new shipment to the glogal array of shipment state
+            dispatch(AddToShipmentsArray(response.data.shipment))
+            console.log(response.data.shipment)
+            //clear form
+            resetForm()
+
+            //hide form
+            setIsHidden(true)
+
+           
+        }).catch((error) => {
+            //if error code 401 -> wrong email/password
+            if(error.response.status === 401) {
+                setErrorMessage('Wrong email/password')
+                //remove message after a few seconds
+                setTimeout(() => {
+                setErrorMessage('')
+                },4000)
+            }
+        })
+
+        console.log(values)
+    }
+
     //formik hook
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    const { resetForm ,values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues:{
             shipmentName: "",
             customerName: "",
@@ -24,8 +69,10 @@ function AddShipmentForm({
             customerPhoneNumber: "",
             waybill: "",
         },
+        onSubmit,
+        validationSchema:addShipmentSchema
     })
-
+    
   return (
     // container window
     <div
@@ -35,20 +82,23 @@ function AddShipmentForm({
 
         {/* form container */}
         <div
-            className='bg-[#5c6478] min-w-[440px] w-[60%] max-w-[760px] mx-auto mt-[130px] rounded-md p-2 flex flex-col items-center'
+            className='bg-[#454c61] min-w-[440px] w-[60%] max-w-[760px] mx-auto mt-[130px] rounded-md p-2 flex flex-col items-center'
             onClick={(e) => {e.stopPropagation()}}    
         >
             {/* close form button */}
             <IoIosCloseCircle
                 className='hover:cursor-pointer hover:opacity-70 transition-all scale-[1.2] ml-auto'
                 color='white'
-                onClick={() => setIsHidden(true)}
+                onClick={() => {
+                    resetForm()
+                    setIsHidden(true)
+                }}
             />
 
             {/* form title */}
             <span className='text-white font-semibold text-2xl m-5'>Add Shipment</span>
 
-            <form autoComplete='off'>
+            <form autoComplete='off' onSubmit={handleSubmit}>
 
                 {/* Shipment Name */}
                 <InputField
@@ -106,7 +156,7 @@ function AddShipmentForm({
                     }
                 />
 
-                {/* Customer Address */}
+                {/* Waybill */}
                 <InputField
                     id='waybill'
                     label='Waybill'
@@ -122,13 +172,13 @@ function AddShipmentForm({
 
                 {/* error message container */}
                 <div className='flex justify-center m-4'>
-                    <span className='text-red-400 font-semibold text-sm text-center'>ERROR</span>
+                    <span className='text-red-400 font-semibold text-sm text-center'>{errorMessage}</span>
                 </div>
 
                 {/* Create Shipment Button */}
                 <Button
                     text="Add"
-                    onClick={() => setIsHidden(false)}
+                    onClick={handleSubmit}
                     icon={<IoIosAdd style={{scale:'1.4'}} />}
                     style={{margin:'auto',backgroundColor:'#16244a'}}
                 />

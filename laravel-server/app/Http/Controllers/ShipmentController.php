@@ -29,6 +29,7 @@ class ShipmentController extends Controller
 
         return response()->json([
             'status'=>'success',
+            'shipment'=>$shipment
         ], 200);
 
     }

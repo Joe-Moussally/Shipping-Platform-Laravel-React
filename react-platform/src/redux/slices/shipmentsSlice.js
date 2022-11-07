@@ -12,11 +12,12 @@ export const shipmentsSlice = createSlice({
       state.value = action.payload
       console.log(state.value)
     },
-    AddToShipmentsArray: (state) => {
-        
+    AddToShipmentsArray: (state,payload) => {
+        state.value = [...state.value,payload]
     },
     removeFromShipmentArray: (state,payload) => {
-      state.value = state.value.filter((shipment) => shipment.id !== payload.id)
+      console.log()
+      state.value = state.value.filter((shipment) => shipment.id !== payload.payload.id)
     }
   },
 })

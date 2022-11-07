@@ -13,7 +13,11 @@ import { BsPersonFill } from 'react-icons/bs'
 import { FaPhoneAlt } from 'react-icons/fa'
 import { MdLocationPin } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
+
+//api imports
 import { deleteShipmentById } from '../api/fetchFunctions'
+
+//redux imports
 import { removeFromShipmentArray } from '../redux/slices/shipmentsSlice'
 
 function ShipmentCard({
@@ -33,7 +37,7 @@ function ShipmentCard({
     if(window.confirm('Are you sure you want to delete shipment '+shipmentName)) {
       deleteShipmentById(id).then(() => {
         //delete remove the shipment from redux
-        dispatch(removeFromShipmentArray(id))
+        dispatch(removeFromShipmentArray({id}))
       })
     }
   }
