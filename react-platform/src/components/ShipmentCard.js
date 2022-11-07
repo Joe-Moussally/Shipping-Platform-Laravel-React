@@ -10,14 +10,26 @@ import { BsPersonFill } from 'react-icons/bs'
 import { FaPhoneAlt } from 'react-icons/fa'
 import { MdLocationPin } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
+import { deleteShipmentById } from '../api/fetchFunctions'
 
 function ShipmentCard({
+  id,
   shipmentName,
   customerName,
   customerAddress,
   customerPhoneNumber,
   waybill
 }) {
+
+  //function to confirm the deletion of a shipment
+  const confirmDeleteShipment = () => {
+    //if user confirm deletion of  shipment -> call delete shipment api
+    if(window.confirm('Are you sure you want to delete shipment '+shipmentName)) {
+      deleteShipmentById(id).then(response => {
+        console.log(response.data)
+      })
+    }
+  }
 
   return (
     <div className='flex flex-col bg-[#19283d] border-[1.3px] border-gray-400 rounded-md h-fit min-w-[330px] w-[30%] max-w-[400px] p-3'>
@@ -68,6 +80,7 @@ function ShipmentCard({
           icon={
             <BiTrashAlt />
           }
+          onClick={confirmDeleteShipment}
           style={{
             backgroundColor:'#bd2b35',
             scale:'.8'

@@ -62,3 +62,21 @@ export const getUserShipments = () => {
         }
     })
 }
+
+//delete a shipments api
+export const deleteShipmentById = (id) => {
+
+    // error handling if token is not defined
+    if(!localStorage.getItem('token') || !id) {
+        console.warn('token/shipment id is required')
+        return
+    }
+
+    return axios({
+        method:'DELETE',
+        url:baseUrl+apiPath+'/shipment/'+id,
+        headers:{
+            'Authorization' : 'Bearer '+localStorage.getItem('token')
+        }
+    })
+}

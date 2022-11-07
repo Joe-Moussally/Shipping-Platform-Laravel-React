@@ -23,18 +23,25 @@ function DashboardPage() {
 
     getUserShipments().then(response => {
       dispatch(updateShipmentsArray(response.data.shipments))
+    }).catch(error => {
+      // if token is expired on the server ->rediret to login
+      if(error.response.status === 500) {
+        window.location.pathname = '/login'
+      }
     })
     
   },[])
 
   return (
-    <div className='bg-[#001024] h-[100vh]'>
+    <div className=''>
       
       {/* Shipments container */}
-      <div className=' flex flex-row flex-wrap justify-center gap-4'>
+      <div className=' flex flex-row flex-wrap justify-center gap-4 p-2'>
         {
           shipmentsArray.map(shipment => (
             <ShipmentCard
+              key={shipment.id}
+              id={shipment.id}
               shipmentName={shipment.shipment_name}
               customerName={shipment.customer_name}
               customerAddress={shipment.customer_address}
