@@ -36,9 +36,9 @@ function AddShipmentForm({
 
         //call add shipment api
         addShipment(values).then((response) => {
+            console.log(response.data.shipment)
             //on success -> add the new shipment to the glogal array of shipment state
             dispatch(AddToShipmentsArray(response.data.shipment))
-            console.log(response.data.shipment)
             //clear form
             resetForm()
 
@@ -56,8 +56,6 @@ function AddShipmentForm({
                 },4000)
             }
         })
-
-        console.log(values)
     }
 
     //formik hook

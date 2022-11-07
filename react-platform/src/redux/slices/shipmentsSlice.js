@@ -10,13 +10,11 @@ export const shipmentsSlice = createSlice({
   reducers: {
     updateShipmentsArray: (state,action) => {
       state.value = action.payload
-      console.log(state.value)
     },
     AddToShipmentsArray: (state,payload) => {
-        state.value = [...state.value,payload]
+      state.value = [...state.value,payload.payload]
     },
     removeFromShipmentArray: (state,payload) => {
-      console.log()
       state.value = state.value.filter((shipment) => shipment.id !== payload.payload.id)
     }
   },
