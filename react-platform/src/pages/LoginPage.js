@@ -38,15 +38,15 @@ function LoginPage() {
     })
   }
 
-    //formik hook
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-      initialValues:{
-          email: "",
-          password: "",
-      },
-      validationSchema: logInSchema,
-      onSubmit
-    })
+  //formik hook
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    initialValues:{
+        email: "",
+        password: "",
+    },
+    validationSchema: logInSchema,
+    onSubmit
+  })
 
 
 
