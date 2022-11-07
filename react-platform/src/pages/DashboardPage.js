@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
 
 //api imports
-import { getUserShipments } from '../api/fetchFunctions'
+import { getUserShipments } from '../api/fetchFunctions';
 
 //redux import
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,10 +10,12 @@ import { getShipmentsArray, updateShipmentsArray } from '../redux/slices/shipmen
 //component imports
 import ShipmentCard from '../components/ShipmentCard';
 import Button from '../components/Button';
+import AddShipmentForm from '../components/AddShipmentForm';
 
 //icons imports
-import { IoIosAdd } from 'react-icons/io'
-import { RiErrorWarningLine } from 'react-icons/ri'
+import { IoIosAdd } from 'react-icons/io';
+import { RiErrorWarningLine } from 'react-icons/ri';
+
 
 
 function DashboardPage() {
@@ -21,6 +23,9 @@ function DashboardPage() {
   const dispatch = useDispatch()
 
   let shipmentsArray = useSelector(getShipmentsArray)
+
+  //track if the add shipment form is hidden
+  const [isHidden,setIsHidden] = useState(true)
 
   useEffect(() => {
     
@@ -47,7 +52,8 @@ function DashboardPage() {
 
       {/* Create Shipment Button */}
       <Button
-        text="Create New Shipment"
+        text="Add New Shipment"
+        onClick={() => setIsHidden(false)}
         icon={<IoIosAdd style={{scale:'1.4'}} />}
         style={{margin:50}}
       />
@@ -77,6 +83,12 @@ function DashboardPage() {
           No Shipments Found
         </span>
       }
+
+      {/* Add New Shipment Form */}
+      <AddShipmentForm
+        isHidden={isHidden}
+        setIsHidden={setIsHidden}
+      />
 
     </div>
   )
